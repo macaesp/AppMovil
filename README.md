@@ -10,9 +10,9 @@ definido por los propios estudiantes, basado en una problemática real o simulad
 en la asignatura, incluyendo diseño visual, formularios validados, navegación funcional, gestión de estado, almacenamiento local, recursos
 nativos y animaciones.
 
-Esta segunda evaluación forma parte del proceso de desarrollo que será considerado en la Evaluación Final Transversal (EFT). Esta
-evaluación corresponde a un avance intermedio y tiene como objetivo evidenciar el progreso del trabajo. Por ello, será necesario que
-posteriormente mejores y fortalezcas lo desarrollado, integrando los aprendizajes y retroalimentaciones recibidas.
+  Esta segunda evaluación forma parte del proceso de desarrollo que será considerado en la Evaluación Final Transversal (EFT). Esta
+  evaluación corresponde a un avance intermedio y tiene como objetivo evidenciar el progreso del trabajo. Por ello, será necesario que
+  posteriormente mejores y fortalezcas lo desarrollado, integrando los aprendizajes y retroalimentaciones recibidas.
 
 - Esta evaluación consiste en entrega de encargo que medirá los siguientes Indicadores de Logro:
     IL2.1 Diseña interfaces móviles estructuradas, aplicando principios de usabilidad, jerarquía visual y adaptabilidad, integrando
