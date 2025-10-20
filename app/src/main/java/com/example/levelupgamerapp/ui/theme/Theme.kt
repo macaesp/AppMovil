@@ -58,4 +58,3 @@ fun LevelUpGamerAppTheme(
         content = content
     )
 }
-
