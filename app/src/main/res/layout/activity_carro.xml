@@ -29,7 +29,7 @@
         android:padding="8dp"
         android:background="#111111"
         android:scrollbars="vertical"
-        tools:listitem="@layout/item_producto_carrito" />
+        tools:listitem="@layout/item_producto_carro" />
 
     <!-- Botón finalizar compra -->
     <Button

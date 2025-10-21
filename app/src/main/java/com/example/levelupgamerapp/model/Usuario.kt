@@ -4,5 +4,5 @@ data class Usuario(
     val id: Int = 0,
     val usuario: String,
     val gmail: String,
-    val contraseña: String
+    val contrasena: String
 )
