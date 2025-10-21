@@ -1,20 +1,20 @@
-package com.example.levelupgamerapp.data.local.dao
+package com.example.levelupgamerapp.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.levelupgamerapp.data.local.entity.UsuarioEntity
+import com.example.levelupgamerapp.model.Usuario
 
 @Dao
 interface UsuarioDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun registroUsuario(usuario: UsuarioEntity)
 
-    @Query("SELECT * FROM usuarios WHERE gmail = :gmail AND contrasena = :contrasena LIMIT 1")
-    suspend fun logear(gmail: String, contrasena: String): UsuarioEntity?
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertarUsuario(usuario: Usuario)
 
-    @Query("SELECT * FROM usuarios WHERE gmail = :gmail LIMIT 1")
-    suspend fun obtenerUsuarioPorGmail(gmail: String): UsuarioEntity?
+    @Query("SELECT * FROM usuarios WHERE gmail = :email LIMIT 1")
+    suspend fun getUsuarioPorEmail(email: String): Usuario?
 
+    @Query("SELECT * FROM usuarios")
+    suspend fun getTodosUsuarios(): List<Usuario>
 }
