@@ -1,10 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Colores base -->
+    <color name="colorPrimary">#39FF14</color> <!-- Verde neón -->
+    <color name="colorPrimaryDark">#00CC66</color>
+    <color name="colorAccent">#00FF99</color>
+
+    <!-- Fondo y texto -->
+    <color name="colorBackground">#0A0A0A</color> <!-- Negro profundo -->
+    <color name="colorCard">#111111</color> <!-- Gris oscuro -->
+    <color name="colorTextPrimary">#FFFFFF</color> <!-- Blanco -->
+    <color name="colorTextSecondary">#BBBBBB</color> <!-- Gris claro -->
+
+    <!-- Extras -->
+    <color name="colorError">#FF3333</color> <!-- Rojo alerta -->
+    <color name="colorSuccess">#39FF14</color> <!-- Verde de confirmación -->
 </resources>
