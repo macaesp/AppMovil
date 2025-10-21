@@ -1,6 +1,7 @@
 package com.example.levelupgamerapp.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.core.splashscreen.SplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
