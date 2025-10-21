@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#0A0A0A"
-    android:padding="16dp"
-    tools:context=".view.CarritoActivity">
+    android:padding="16dp">
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/txtTituloCarrito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="🛒Carrito de Compras"
-        android:textColor="#39FF14"
+        android:text="Carrito de Compras"
+        android:textColor="#76FF03"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="12dp" />
 
-    <!-- Lista de productos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCarrito"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp"
-        android:background="#111111"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/item_producto_carro" />
+        android:scrollbars="vertical" />
 
-    <!-- Botón finalizar compra -->
-    <Button
-        android:id="@+id/btnFinalizarCompra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Finalizar Compra"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:backgroundTint="#39FF14"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="8dp"
-        android:padding="12dp" />
-
-    <!-- Total (opcional) -->
     <TextView
         android:id="@+id/txtTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Total: $0"
-        android:textColor="#FFFFFF"
-        android:textAlignment="textEnd"
+        android:textColor="#76FF03"
         android:textSize="18sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
-        android:paddingEnd="8dp" />
+        android:gravity="end"
+        android:layout_marginBottom="8dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="space_between">
+
+        <Button
+            android:id="@+id/btnVaciar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Vaciar"
+            android:background="#E53935"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnComprar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Comprar"
+            android:background="#76FF03"
+            android:textColor="#000000" />
+    </LinearLayout>
 </LinearLayout>
