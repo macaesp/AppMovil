@@ -23,12 +23,14 @@ class UsuarioViewModel : ViewModel() {
         _mensaje.value = "Usuario registrado exitosamente"
     }
 
-    fun iniciarSesion(correo: String, contrasena: String) {
+    fun iniciarSesion(correo: String, contrasena: String): Boolean {
         val usuario = _usuarioActual.value
-        if (usuario?.gmail == correo && usuario.contrasena == contrasena) {
+        return if (usuario?.gmail == correo && usuario.contrasena == contrasena) {
             _mensaje.value = "Inicio de sesión correcto"
+            true
         } else {
             _mensaje.value = "Credenciales inválidas"
+            false
         }
     }
 

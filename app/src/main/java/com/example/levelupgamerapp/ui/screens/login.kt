@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.levelupgamerapp.data.util.Resultado
 import com.example.levelupgamerapp.viewmodel.UsuarioViewModel
 
 @Composable
@@ -46,15 +47,13 @@ fun LoginScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Correo electrónico", color = Color(0xFF76FF03)) },
-            singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            label = { Text("Correo electrónico") },
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF76FF03),
                 unfocusedBorderColor = Color.Gray,
-                textColor = Color.White,
-                cursorColor = Color(0xFF76FF03)
-            ),
-            modifier = Modifier.fillMaxWidth()
+                cursorColor = Color.White,
+                focusedLabelColor = Color(0xFF76FF03)
+            )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -67,14 +66,16 @@ fun LoginScreen(
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF76FF03),
                 unfocusedBorderColor = Color.Gray,
-                textColor = Color.White,
-                cursorColor = Color(0xFF76FF03)
+                cursorColor = Color(0xFF76FF03),
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
             ),
             modifier = Modifier.fillMaxWidth()
         )
+
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -82,22 +83,23 @@ fun LoginScreen(
         Button(
             onClick = {
                 if (email.isNotEmpty() && password.isNotEmpty()) {
-                    usuarioViewModel.iniciarSesion(email, password) { exito ->
-                        if (exito) {
-                            navController.navigate("welcome")
-                        } else {
-                            errorMessage = "Credenciales incorrectas"
-                        }
+                    val exito = usuarioViewModel.iniciarSesion(email, password)
+                    if (exito) {
+                        navController.navigate("welcome")
+                    } else {
+                        errorMessage = "Credenciales incorrectas"
                     }
                 } else {
-                    errorMessage = "Complete todos los campos"
+                    errorMessage = "Por favor completa todos los campos"
                 }
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF76FF03))
         ) {
-            Text("Ingresar", color = Color.Black, fontWeight = FontWeight.Bold)
+            Text("Iniciar sesión", color = Color.Black, fontWeight = FontWeight.Bold)
         }
+
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

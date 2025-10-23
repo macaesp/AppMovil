@@ -2,12 +2,14 @@ package com.example.levelupgamerapp.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,11 +49,13 @@ fun RegisterScreen(
             onValueChange = { nombre = it },
             label = { Text("Nombre completo") },
             singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF76FF03),
                 unfocusedBorderColor = Color.Gray,
                 cursorColor = Color(0xFF76FF03),
-                focusedLabelColor = Color(0xFF76FF03)
+                focusedLabelColor = Color(0xFF76FF03),
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
             ),
             modifier = Modifier.fillMaxWidth()
         )
@@ -63,14 +67,12 @@ fun RegisterScreen(
             value = email,
             onValueChange = { email = it },
             label = { Text("Correo electrónico") },
-            singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF76FF03),
                 unfocusedBorderColor = Color.Gray,
-                cursorColor = Color(0xFF76FF03),
+                cursorColor = Color.White,
                 focusedLabelColor = Color(0xFF76FF03)
-            ),
-            modifier = Modifier.fillMaxWidth()
+            )
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -79,14 +81,16 @@ fun RegisterScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Contraseña") },
+            label = { Text("Contraseña", color = Color(0xFF76FF03)) },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF76FF03),
                 unfocusedBorderColor = Color.Gray,
                 cursorColor = Color(0xFF76FF03),
-                focusedLabelColor = Color(0xFF76FF03)
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
             ),
             modifier = Modifier.fillMaxWidth()
         )
@@ -100,14 +104,17 @@ fun RegisterScreen(
             label = { Text("Confirmar contraseña") },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color(0xFF76FF03),
                 unfocusedBorderColor = Color.Gray,
                 cursorColor = Color(0xFF76FF03),
-                focusedLabelColor = Color(0xFF76FF03)
+                focusedLabelColor = Color(0xFF76FF03),
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
             ),
             modifier = Modifier.fillMaxWidth()
         )
+
 
         Spacer(modifier = Modifier.height(20.dp))
 

@@ -14,17 +14,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.levelupgamerapp.R
 import com.example.levelupgamerapp.model.CarroCompras
 import com.example.levelupgamerapp.model.Producto
-import com.example.levelupgamerapp.R
 
 @Composable
 fun CarritoScreen(
-    carrito: List<CarroCompras>,
-    onAumentar: (CarroCompras) -> Unit,
-    onDisminuir: (CarroCompras) -> Unit,
+    carrito: CarroCompras,
+    onAumentar: (Producto) -> Unit,
+    onDisminuir: (Producto) -> Unit,
     onFinalizarCompra: () -> Unit
 ) {
+    val items = carrito.items.toList() // 🔹 convierte el map en lista de pares (Producto, Int)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,11 +46,12 @@ fun CarritoScreen(
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            items(carrito) { item ->
+            items(items) { (producto, cantidad) ->
                 CarritoItem(
-                    item = item,
-                    onAumentar = onAumentar,
-                    onDisminuir = onDisminuir
+                    producto = producto,
+                    cantidad = cantidad,
+                    onAumentar = { onAumentar(producto) },
+                    onDisminuir = { onDisminuir(producto) }
                 )
             }
         }
@@ -71,9 +74,10 @@ fun CarritoScreen(
 
 @Composable
 fun CarritoItem(
-    item: CarroCompras,
-    onAumentar: (CarroCompras) -> Unit,
-    onDisminuir: (CarroCompras) -> Unit
+    producto: Producto,
+    cantidad: Int,
+    onAumentar: () -> Unit,
+    onDisminuir: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -86,9 +90,7 @@ fun CarritoItem(
             modifier = Modifier.padding(12.dp)
         ) {
             Image(
-                painter = painterResource(
-                    id = item.producto.imagenResId ?: R.drawable.ic_gamepad
-                ),
+                painter = painterResource(id = producto.imagenResId ?: R.drawable.ic_gamepad),
                 contentDescription = "Imagen del producto",
                 modifier = Modifier
                     .size(64.dp)
@@ -97,32 +99,32 @@ fun CarritoItem(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = item.producto.nombre,
+                    text = producto.nombre,
                     color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "x${item.cantidad}",
+                    text = "x$cantidad",
                     color = Color(0xFF76FF03),
                     fontSize = 16.sp
                 )
                 Text(
-                    text = "$${item.producto.precio * item.cantidad}",
+                    text = "$${producto.precio * cantidad}",
                     color = Color.White,
                     fontSize = 14.sp
                 )
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { onAumentar(item) }) {
+                IconButton(onClick = onAumentar) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_gamepad),
                         contentDescription = "Aumentar",
                         tint = Color(0xFF76FF03)
                     )
                 }
-                IconButton(onClick = { onDisminuir(item) }) {
+                IconButton(onClick = onDisminuir) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_gamepad),
                         contentDescription = "Disminuir",
