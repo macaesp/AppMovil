@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.levelupgamerapp.R
 import com.example.levelupgamerapp.model.Producto
 import com.example.levelupgamerapp.viewmodel.ProductoViewModel
-import com.example.levelupgamerapp.view.adapter.CarritoAdapter
 
 class CarritoActivity : AppCompatActivity() {
 

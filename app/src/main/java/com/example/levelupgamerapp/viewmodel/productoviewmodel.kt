@@ -1,32 +1,47 @@
 package com.example.levelupgamerapp.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.levelupgamerapp.data.repository.ProductoRepository
-import com.example.levelupgamerapp.model.Producto
 import com.example.levelupgamerapp.model.CarroCompras
+import com.example.levelupgamerapp.model.Producto
 
-class ProductoViewModel(private val repository: ProductoRepository) : ViewModel() {
-    val productos: List<Producto> = repository.getAllproductos()
-    private val _carroCompras = MutableLiveData<CarroCompras>(CarroCompras())
-    val carroCompras: LiveData<CarroCompras>
-        get() = _carroCompras
+class ProductoViewModel : ViewModel() {
 
-    fun agregarAlCarro(producto: Producto, cantidad:Int = 1) {
-        val carroActual = _carroCompras.value ?: CarroCompras()
-        carroActual.agregarProducto(producto, cantidad)
-        _carroCompras.value = carroActual
+    // Lista de productos disponibles (puedes modificarla)
+    val productos = listOf(
+        Producto(
+            1, "Control Inalámbrico", 49990, "ic_gamepad",
+            descripcion = TODO(),
+            imagenResId = TODO()
+        ),
+        Producto(
+            2, "Teclado Mecánico RGB", 89990, "ic_keyboard",
+            descripcion = TODO(),
+            imagenResId = TODO()
+        ),
+        Producto(
+            3, "Mouse Gamer", 29990, "ic_mouse",
+            descripcion = TODO(),
+            imagenResId = TODO()
+        )
+    )
+
+    // Estado del carrito
+    private val _carrito = mutableStateOf(CarroCompras())
+    val carrito get() = _carrito
+
+    // Agregar producto al carrito
+    fun agregarProducto(producto: Producto) {
+        _carrito.value.agregarProducto(producto)
     }
 
-    fun removerDelCarro(producto: Producto, cantidad:Int = 1) {
-        val carroActual = _carroCompras.value ?: CarroCompras()
-        carroActual.removerProducto(producto, cantidad)
-        _carroCompras.value = carroActual
+    // Disminuir cantidad de producto
+    fun removerProducto(producto: Producto) {
+        _carrito.value.removerProducto(producto)
     }
 
-    fun limpiarCarro() {
-        _carroCompras.value = CarroCompras()
+    // Vaciar el carrito
+    fun limpiarCarrito() {
+        _carrito.value = CarroCompras()
     }
-
 }
