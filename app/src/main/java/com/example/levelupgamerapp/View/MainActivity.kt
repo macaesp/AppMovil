@@ -3,7 +3,11 @@ package com.example.levelupgamerapp.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.levelupgamerapp.ui.navigation.AppNavigation
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.example.levelupgamerapp.navigation.AppNavigation
 import com.example.levelupgamerapp.ui.theme.LevelUpGamerAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +15,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LevelUpGamerAppTheme {
-                AppNavigation()  // Sistema de navegación Compose
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // Aquí llamamos a nuestro sistema de navegación
+                    AppNavigation()
+                }
             }
         }
     }
