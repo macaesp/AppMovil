@@ -2,24 +2,22 @@ package com.example.levelupgamerapp.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.levelupgamerapp.viewmodel.UsuarioViewModel
 
 @Composable
 fun LoginScreen(
     navController: NavController,
-    usuarioViewModel: UsuarioViewModel
+    onLoginClick: (String, String) -> Unit = { _, _ -> }
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -34,90 +32,85 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "🔑 Iniciar Sesión",
-            fontSize = 28.sp,
+            text = "🎮 Bienvenido a LevelUpGamer",
             color = Color(0xFF76FF03),
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // Campo Email
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Correo electrónico", color = Color(0xFF76FF03)) },
-            singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF76FF03),
-                unfocusedBorderColor = Color.Gray,
-                textColor = Color.White,
-                cursorColor = Color(0xFF76FF03)
-            ),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Campo Contraseña
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Contraseña", color = Color(0xFF76FF03)) },
-            singleLine = true,
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color(0xFF76FF03),
-                unfocusedBorderColor = Color.Gray,
-                textColor = Color.White,
-                cursorColor = Color(0xFF76FF03)
-            ),
-            modifier = Modifier.fillMaxWidth()
+            fontWeight = FontWeight.Bold,
+            fontSize = 28.sp,
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Botón Login
+        // Email
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Correo electrónico") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF76FF03),
+                unfocusedBorderColor = Color.Gray,
+                cursorColor = Color(0xFF76FF03),
+                focusedLabelColor = Color(0xFF76FF03),
+                unfocusedLabelColor = Color.Gray,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Contraseña
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Contraseña") },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFF76FF03),
+                unfocusedBorderColor = Color.Gray,
+                cursorColor = Color(0xFF76FF03),
+                focusedLabelColor = Color(0xFF76FF03),
+                unfocusedLabelColor = Color.Gray,
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+            )
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(
             onClick = {
-                if (email.isNotEmpty() && password.isNotEmpty()) {
-                    usuarioViewModel.iniciarSesion(email, password) { exito ->
-                        if (exito) {
-                            navController.navigate("welcome")
-                        } else {
-                            errorMessage = "Credenciales incorrectas"
-                        }
+                if (email.isNotBlank() && password.isNotBlank()) {
+                    onLoginClick(email, password)
+                    navController.navigate("main") {
+                        popUpTo("login") { inclusive = true }
                     }
                 } else {
-                    errorMessage = "Complete todos los campos"
+                    errorMessage = "Por favor, completa todos los campos."
                 }
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF76FF03))
         ) {
-            Text("Ingresar", color = Color.Black, fontWeight = FontWeight.Bold)
+            Text("Iniciar Sesión", color = Color.Black, fontWeight = FontWeight.Bold)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Mensaje de error
         errorMessage?.let {
-            Text(
-                text = it,
-                color = Color.Red,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(4.dp)
-            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(it, color = Color.Red, fontSize = 14.sp)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón para registrarse
         TextButton(onClick = { navController.navigate("register") }) {
             Text(
                 "¿No tienes cuenta? Regístrate aquí",
-                color = Color(0xFF76FF03)
+                color = Color(0xFF76FF03),
+                textAlign = TextAlign.Center
             )
         }
     }

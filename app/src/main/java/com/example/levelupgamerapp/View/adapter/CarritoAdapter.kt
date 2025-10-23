@@ -8,12 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelupgamerapp.R
-import com.example.levelupgamerapp.model.ItemCarrito
+import com.example.levelupgamerapp.model.CarroCompras
 
 class CarritoAdapter(
-    private var lista: List<ItemCarrito>,
-    private val onAumentar: (ItemCarrito) -> Unit,
-    private val onDisminuir: (ItemCarrito) -> Unit
+    private var lista: List<CarroCompras>,
+    private val onAumentar: (CarroCompras) -> Unit,
+    private val onDisminuir: (CarroCompras) -> Unit
 ) : RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder>() {
 
     class CarritoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,14 +33,18 @@ class CarritoAdapter(
 
     override fun onBindViewHolder(holder: CarritoViewHolder, position: Int) {
         val item = lista[position]
+
         holder.nombre.text = item.producto.nombre
         holder.cantidad.text = "x${item.cantidad}"
         holder.precio.text = "$${item.producto.precio * item.cantidad}"
 
+        // Cargar imagen si existe, o usar un ícono por defecto
         val resId = holder.itemView.context.resources.getIdentifier(
-            item.producto.imagenResId.toString(), "drawable",
+            item.producto.imagenResId ?: "ic_gamepad",
+            "drawable",
             holder.itemView.context.packageName
         )
+
         if (resId != 0) holder.imagen.setImageResource(resId)
 
         holder.btnMas.setOnClickListener { onAumentar(item) }
@@ -49,7 +53,7 @@ class CarritoAdapter(
 
     override fun getItemCount(): Int = lista.size
 
-    fun actualizarLista(nuevaLista: List<ItemCarrito>) {
+    fun actualizarLista(nuevaLista: List<CarroCompras>) {
         lista = nuevaLista
         notifyDataSetChanged()
     }
