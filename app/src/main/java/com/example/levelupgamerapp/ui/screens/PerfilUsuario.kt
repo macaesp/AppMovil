@@ -86,7 +86,6 @@ fun PerfilUsuarioScreen(
 
         OutlinedButton(
             onClick = onCerrarSesion,
-            border = ButtonDefaults.outlinedButtonBorder,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Cerrar Sesión", color = Color(0xFF76FF03))
