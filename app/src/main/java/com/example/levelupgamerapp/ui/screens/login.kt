@@ -11,10 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.levelupgamerapp.data.util.Resultado
+import androidx.navigation.compose.rememberNavController
 import com.example.levelupgamerapp.viewmodel.UsuarioViewModel
 
 @Composable
@@ -123,4 +124,12 @@ fun LoginScreen(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    val navController = rememberNavController()
+    val usuarioViewModel = UsuarioViewModel() // Mock ViewModel
+    LoginScreen(navController = navController, usuarioViewModel = usuarioViewModel)
 }

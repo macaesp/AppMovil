@@ -10,9 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.levelupgamerapp.model.Producto
 
 @Composable
@@ -23,7 +25,7 @@ fun ProductoCarritoScreen(
     onVaciarCarrito: () -> Unit = {},
     onFinalizarCompra: () -> Unit = {}
 ) {
-    val total = productos.sumOf { it.precio }
+    val total = productos.sumOf { it.precio.toDouble() }
 
     Column(
         modifier = Modifier
@@ -141,4 +143,28 @@ fun ProductoCarritoItem(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductoCarritoScreenPreview() {
+    val navController = rememberNavController()
+    val productos = listOf(
+        Producto(1, "Teclado Mecánico RGB", 120, "Teclados", "Teclado para gaming con switches rojos"),
+        Producto(2, "Mouse Gamer Inalámbrico", 80, "Mouses", "Mouse con sensor de alta precisión")
+    )
+    ProductoCarritoScreen(
+        navController = navController,
+        productos = productos,
+        onEliminar = {},
+        onVaciarCarrito = {},
+        onFinalizarCompra = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductoCarritoItemPreview() {
+    val producto = Producto(1, "Teclado Mecánico RGB", 120, "Teclados", "Teclado para gaming con switches rojos")
+    ProductoCarritoItem(producto = producto, onEliminar = {})
 }

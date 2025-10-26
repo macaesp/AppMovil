@@ -10,11 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.levelupgamerapp.R
 import com.example.levelupgamerapp.model.Producto
-
 @Composable
 fun MainScreen(
     navController: NavController,
@@ -75,13 +77,13 @@ fun ProductoItem(producto: Producto, onAgregarAlCarrito: (Producto) -> Unit) {
                 fontSize = 20.sp
             )
             Text(
-                text = producto.descripcion ?: "Sin descripción",
+                text = producto.descripcion,
                 color = Color.Gray,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(vertical = 4.dp)
             )
             Text(
-                text = "$${producto.precio}",
+                text = "$${"%.2f".format(producto.precio)}",
                 color = Color(0xFF76FF03),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium
@@ -98,4 +100,33 @@ fun ProductoItem(producto: Producto, onAgregarAlCarrito: (Producto) -> Unit) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview() {
+    val navController = rememberNavController()
+    val productos = listOf(
+        Producto(1, "Catan", 29990, "Juegos de Mesa", "Juego clasico de estrategia en donde los jugadores compiten para colonizar y expandirse en la isa de catan, Ideal para 3-4 jugadores",
+            R.drawable.catan),
+        Producto(2, "Carcassonne", 24990, "Juegos de Mesa","Juego de colocaciobn de fichas en donde los jugadores construyen el paisaje de la fortaleza medieval, Ideal para 2-5 jugadores",R.drawable.carcassonne),
+        Producto(3, "Controlador Inalámbrico Xbox Series X ", 59990,"Accesorios", "Ofrece una experencia de juego comoda con botones mapeables y una respuesta tactil mejorada.",R.drawable.mandoxbox),
+        Producto(4, "Auriculares Gamer HyperX Cloud II", 79990,"Acccesorios","Proporcionan un sonido envolvente de calidad con un microfono desmontable y almohadillas de espuma para mayor comodidad.",R.drawable.auriculares),
+        Producto(6,"PlayStation 5",549990,"Consolas","Consola de ultima generacion de Sony,ofrece graficos impresionantes y tiempos de carga ultrapidos.",R.drawable.playstation),
+        Producto(7,"PC Gamer ASUS ROG Strix",1299990,"Computadores Gamer","Potente equipo diseñado para ofrecer un rendimiento exceptcional en cualquier juego.",R.drawable.playstation),
+        Producto(8,"Silla Gamer Secretlab Titan",349990,"Sillas Gamers","Diseñada para el maximo comfort,ofrece un soporte ergonomico y personalizacion ajustable.",R.drawable.silla),
+        Producto(9,"Mouse Gamer Logitech G502 HERO",49990,"Mouse","Con sensor de alta presicion y botones personalizables,este mouse es ideal para gamers que buscan un control preciso.",R.drawable.mouse),
+        Producto(10,"Mousepad Razer Goliathus Extended Chroma",29990,"Mousepad","Ofere una area amplia con iluminacion RGB personalizable.",R.drawable.mousepad),
+        Producto(10,"Polera Gamer Personalizada 'Level-Up'",14990,"Poleras Personalizadas","Una polera comoda y estilizada, con la frase 'Level-Up' en el interior.",R.drawable.leveluppolera)
+    )
+    MainScreen(navController = navController, productos = productos)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductoItemPreview() {
+    ProductoItem(
+        producto = Producto(1, "Catan", 29990, "Juego de Mesa","Juego clasico de estrategia en donde los jugadores compiten para colonizar y expandirse en la isa de catan, Ideal para 3-4 jugadores",R.drawable.catan),
+        onAgregarAlCarrito = {}
+    )
 }

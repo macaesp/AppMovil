@@ -11,9 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.levelupgamerapp.R
 import com.example.levelupgamerapp.model.Producto
 
@@ -90,4 +92,12 @@ fun ProductoScreen(
             Text("⬅ Volver a la tienda", color = Color(0xFF76FF03))
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductoScreenPreview() {
+    val navController = rememberNavController()
+    val producto = Producto(1, "Teclado Mecánico RGB", 120, "Teclados", "Teclado para gaming con switches rojos", R.drawable.ic_gamepad)
+    ProductoScreen(navController = navController, producto = producto, onAgregarAlCarrito = {})
 }
