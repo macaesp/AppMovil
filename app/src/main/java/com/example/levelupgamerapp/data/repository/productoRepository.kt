@@ -5,7 +5,7 @@ import com.example.levelupgamerapp.R
 
 class ProductoRepository{
     private val productos = listOf(
-        Producto(1,"Catan",24990,"Juegos de Mesa","Juego de mesa estrategico", R.drawable.ic_launcher_background)
+        Producto(1,"Catan",24990,"Juegos de Mesa","Juego de mesa estrategico", R.drawable.ic_gamepad)
     )
 
     fun getAllproductos(): List<Producto> = productos

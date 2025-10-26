@@ -10,9 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.levelupgamerapp.R
 import com.example.levelupgamerapp.model.Producto
+import com.example.levelupgamerapp.ui.theme.LevelUpGamerAppTheme
 
 @Composable
 fun HistorialComprasScreen(
@@ -79,5 +82,17 @@ fun CompraItem(producto: Producto, fecha: String) {
                 fontSize = 14.sp
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HistorialComprasScreenPreview() {
+    LevelUpGamerAppTheme {
+        val historial = listOf(
+            Pair(Producto(1, "Teclado Mecánico RGB", 120, "Teclados", "Descripción", R.drawable.ic_gamepad), "20/05/2024"),
+            Pair(Producto(2, "Mouse Gamer", 50, "Mouses", "Descripción", R.drawable.ic_gamepad), "18/05/2024")
+        )
+        HistorialComprasScreen(historial = historial)
     }
 }

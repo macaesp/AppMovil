@@ -8,9 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.levelupgamerapp.model.Usuario
+import com.example.levelupgamerapp.ui.theme.LevelUpGamerAppTheme
 
 @Composable
 fun PerfilUsuarioScreen(
@@ -90,5 +92,18 @@ fun PerfilUsuarioScreen(
         ) {
             Text("Cerrar Sesión", color = Color(0xFF76FF03))
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PerfilUsuarioScreenPreview() {
+    LevelUpGamerAppTheme {
+        val usuario = Usuario(id = 1, usuario = "Benjamin Gonzalez", gmail = "benja.gonzalez@example.com", contrasena = "password")
+        PerfilUsuarioScreen(
+            usuario = usuario,
+            onEditarPerfil = { _, _ -> },
+            onCerrarSesion = {}
+        )
     }
 }
