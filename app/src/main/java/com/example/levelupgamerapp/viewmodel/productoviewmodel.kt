@@ -2,29 +2,14 @@ package com.example.levelupgamerapp.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.levelupgamerapp.data.repository.ProductoRepository
 import com.example.levelupgamerapp.model.CarroCompras
 import com.example.levelupgamerapp.model.Producto
 
-class ProductoViewModel : ViewModel() {
+class ProductoViewModel(private val repository: ProductoRepository) : ViewModel() {
 
-    // Lista de productos disponibles (puedes modificarla)
-    val productos = listOf(
-        Producto(
-            1, "Control Inalámbrico", 49990, "ic_gamepad",
-            descripcion = TODO(),
-            imagenResId = TODO()
-        ),
-        Producto(
-            2, "Teclado Mecánico RGB", 89990, "ic_keyboard",
-            descripcion = TODO(),
-            imagenResId = TODO()
-        ),
-        Producto(
-            3, "Mouse Gamer", 29990, "ic_mouse",
-            descripcion = TODO(),
-            imagenResId = TODO()
-        )
-    )
+    // Lista de productos disponibles
+    val productos = repository.getAllproductos()
 
     // Estado del carrito
     private val _carrito = mutableStateOf(CarroCompras())
