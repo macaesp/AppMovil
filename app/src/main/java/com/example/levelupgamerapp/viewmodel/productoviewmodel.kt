@@ -8,25 +8,26 @@ import com.example.levelupgamerapp.model.Producto
 
 class ProductoViewModel(private val repository: ProductoRepository) : ViewModel() {
 
-    // Lista de productos disponibles
-    val productos = repository.getAllproductos()
+    val productos = repository.getProductos()  // Obtenemos los productos desde repo
+    val carrito = mutableStateOf(CarroCompras())
 
-    // Estado del carrito
-    private val _carrito = mutableStateOf(CarroCompras())
-    val carrito get() = _carrito
-
-    // Agregar producto al carrito
     fun agregarProducto(producto: Producto) {
-        _carrito.value.agregarProducto(producto)
+        carrito.value.agregar(producto)
+        carrito.value = carrito.value.copy()
     }
 
-    // Disminuir cantidad de producto
-    fun removerProducto(producto: Producto) {
-        _carrito.value.removerProducto(producto)
+    fun eliminarProducto(producto: Producto) {
+        carrito.value.eliminar(producto)
+        carrito.value = carrito.value.copy()
     }
 
-    // Vaciar el carrito
-    fun limpiarCarrito() {
-        _carrito.value = CarroCompras()
+    fun disminuirProducto(producto: Producto) {
+        carrito.value.disminuir(producto)
+        carrito.value = carrito.value.copy()
+    }
+
+    fun vaciarCarrito() {
+        carrito.value.vaciar()
+        carrito.value = carrito.value.copy()
     }
 }

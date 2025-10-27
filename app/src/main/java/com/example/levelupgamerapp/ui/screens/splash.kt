@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,10 +22,26 @@ import androidx.navigation.compose.rememberNavController
 import com.example.levelupgamerapp.R
 import kotlinx.coroutines.delay
 
+// Definición de colores clave del tema Gamer
+val GamerBlack = Color(0xFF000000)
+val GamerNeonGreen = Color(0xFF39FF14)
+val GamerElectricBlue = Color(0xFF1E90FF)
+
 @Composable
 fun SplashScreen(navController: NavController) {
-    // Controla la animación del logo
+    // Controla la animación de fade in
     val alphaAnim = remember { Animatable(0f) }
+
+    // Controla el pulso del texto "Cargando..."
+    val pulseAnim = rememberInfiniteTransition(label = "pulse")
+    val pulseAlpha by pulseAnim.animateFloat(
+        initialValue = 0.5f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ), label = "pulse_alpha"
+    )
 
     // Lanzar animación y cambio de pantalla
     LaunchedEffect(Unit) {
@@ -32,9 +49,9 @@ fun SplashScreen(navController: NavController) {
             targetValue = 1f,
             animationSpec = tween(durationMillis = 1500)
         )
-        delay(2500)
+        delay(2500) // Mostrar por 2.5 segundos
         navController.navigate("login") {
-            popUpTo("splash") { inclusive = true } // evita volver atrás
+            popUpTo("splash") { inclusive = true }
         }
     }
 
@@ -42,37 +59,43 @@ fun SplashScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(GamerBlack),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+            // Logo animado
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                painter = painterResource(id = R.mipmap.ic_launcher),
                 contentDescription = "Logo LevelUpGamer",
                 modifier = Modifier
                     .size(180.dp)
                     .graphicsLayer(alpha = alphaAnim.value)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
+            // Título: LevelUpGamer (Verde Neón)
             Text(
-                text = "LevelUpGamer",
-                color = Color(0xFF76FF03),
-                fontSize = 32.sp,
+                text = "LEVEL-UP GAMER",
+                color = GamerNeonGreen,
+                fontSize = 36.sp,
+                fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.graphicsLayer(alpha = alphaAnim.value)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Cargando...",
-                color = Color.Gray,
-                fontSize = 18.sp,
+                text = "Iniciando Sistema...",
+                color = GamerElectricBlue,
+                fontSize = 20.sp,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.graphicsLayer(alpha = alphaAnim.value)
+                modifier = Modifier
+                    .graphicsLayer(alpha = pulseAlpha)
+                    .padding(horizontal = 48.dp)
             )
         }
     }
