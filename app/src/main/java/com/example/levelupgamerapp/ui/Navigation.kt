@@ -69,9 +69,16 @@ fun AppNavigation(
             )
         }
 
-        // Pantalla de checkout
         composable("checkout") {
-            CheckoutScreen(navController = navController)
+            CheckoutScreen(
+                onConfirmarCompra = {
+                    productoViewModel.vaciarCarrito()
+                    navController.navigate("main") //vuelve al inicio
+                },
+                onCancelar = {
+                    navController.popBackStack() // vuelve a la pantalla anterior
+                }
+            )
         }
     }
 }
