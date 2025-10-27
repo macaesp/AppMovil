@@ -30,4 +30,8 @@ class ProductoViewModel(private val repository: ProductoRepository) : ViewModel(
         carrito.value.vaciar()
         carrito.value = carrito.value.copy()
     }
+
+    fun getProductoById(id: Int): Producto? {
+        return repository.getProductoById(id)
+    }
 }

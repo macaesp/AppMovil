@@ -1,43 +1,37 @@
-// ui/navigation/AppNavigation.kt
+// ui/navigation/Navigation.kt
 package com.example.levelupgamerapp.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.levelupgamerapp.ui.screens.*
+import com.example.levelupgamerapp.model.Producto
 import com.example.levelupgamerapp.viewmodel.ProductoViewModel
+import com.example.levelupgamerapp.ui.screens.*
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    val productoViewModel: ProductoViewModel = viewModel() // tu ViewModel
-
+fun AppNavigation(
+    navController: NavHostController,
+    productoViewModel: ProductoViewModel
+) {
     NavHost(navController = navController, startDestination = "welcome") {
 
+        // Pantalla de bienvenida
         composable("welcome") {
-            WelcomeScreen(navController)
+            WelcomeScreen(navController = navController)
         }
 
+        // Pantalla de login
         composable("login") {
-            LoginScreen(navController) { email, password ->
-                // Aquí iría la lógica real de login
-                navController.navigate("main") {
-                    popUpTo("welcome") { inclusive = true }
-                }
-            }
+            LoginScreen(navController = navController)
         }
 
+        // Pantalla de registro
         composable("register") {
-            RegisterScreen(navController) { nombre, email, password ->
-                // Lógica de registro
-                navController.navigate("main") {
-                    popUpTo("welcome") { inclusive = true }
-                }
-            }
+            RegisterScreen(navController = navController)
         }
 
+        // Pantalla principal / lista de productos
         composable("main") {
             MainScreen(
                 navController = navController,
@@ -49,29 +43,35 @@ fun AppNavigation() {
             )
         }
 
+        // Pantalla de detalle de producto
+        composable("producto/{productoId}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("productoId")?.toIntOrNull()
+            val producto: Producto? = id?.let { productoViewModel.getProductoById(it) }
+            if (producto != null) {
+                ProductoDetailScreen(
+                    producto = producto,
+                    navController = navController,
+                    onAgregarAlCarrito = { productoViewModel.agregarProducto(it) }
+                )
+            }
+        }
+
+        // Pantalla de carrito
         composable("carrito") {
-            ProductoCarritoScreen(
-                navController = navController,
-                productos = productoViewModel.carrito.value.items.keys.toList(),
-                onEliminar = { productoViewModel.eliminarProducto(it) },
-                onVaciarCarrito = { productoViewModel.vaciarCarrito() },
+            CarritoScreen(
+                carrito = productoViewModel.carrito.value,
+                onAumentar = { productoViewModel.agregarProducto(it) },
+                onDisminuir = { productoViewModel.disminuirProducto(it) },
                 onFinalizarCompra = {
                     productoViewModel.vaciarCarrito()
-                    // Aquí puedes mostrar mensaje de éxito
+                    navController.navigate("checkout")
                 }
             )
         }
 
-        composable("producto/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
-            val producto = productoViewModel.productos.find { it.id == id }
-            if (producto != null) {
-                ProductoScreen(
-                    navController = navController,
-                    producto = producto,
-                    onAgregarAlCarrito = { productoViewModel.agregarProducto(it) }
-                )
-            }
+        // Pantalla de checkout
+        composable("checkout") {
+            CheckoutScreen(navController = navController)
         }
     }
 }
