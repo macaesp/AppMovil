@@ -1,4 +1,3 @@
-// ui/components/ProductoList.kt
 package com.example.levelupgamerapp.ui.components
 
 import androidx.compose.foundation.Image
@@ -22,7 +21,8 @@ import com.example.levelupgamerapp.model.Producto
 @Composable
 fun ProductoList(
     productos: List<Producto>,
-    onAgregarClick: (Producto) -> Unit
+    onAgregarClick: (Producto) -> Unit,
+    onVerDetalleClick: (Producto) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -30,19 +30,27 @@ fun ProductoList(
             .background(Color(0xFF121212))
             .padding(8.dp)
     ) {
-        items(productos) { p ->
-            ProductoItem(p, onAgregarClick)
+        items(productos) { producto ->
+            ProductoItem(
+                producto = producto,
+                onAgregarClick = { onAgregarClick(producto) },
+                onVerDetalleClick = { onVerDetalleClick(producto) }
+            )
         }
     }
 }
 
 @Composable
-private fun ProductoItem(producto: Producto, onAgregarClick: (Producto) -> Unit) {
+private fun ProductoItem(
+    producto: Producto,
+    onAgregarClick: () -> Unit,
+    onVerDetalleClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 6.dp)
-            .clickable { onAgregarClick(producto) },
+            .clickable { onVerDetalleClick() },
         colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
     ) {
         Row(
@@ -56,15 +64,33 @@ private fun ProductoItem(producto: Producto, onAgregarClick: (Producto) -> Unit)
                     .size(80.dp)
                     .padding(end = 12.dp)
             )
-            Column(Modifier.weight(1f)) {
-                Text(producto.nombre, color = Color(0xFF76FF03), fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                Text(producto.descripcion, color = Color.Gray, fontSize = 14.sp, modifier = Modifier.padding(vertical = 4.dp))
-                Text("$${producto.precio}", color = Color.White, fontSize = 16.sp)
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    producto.nombre,
+                    color = Color(0xFF76FF03),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Text(
+                    producto.descripcion,
+                    color = Color.Gray,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Text(
+                    "$${producto.precio}",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
             }
+
             Button(
-                onClick = { onAgregarClick(producto) },
+                onClick = onAgregarClick,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF76FF03))
-            ) { Text("Agregar", color = Color.Black, fontWeight = FontWeight.Bold) }
+            ) {
+                Text("Agregar", color = Color.Black, fontWeight = FontWeight.Bold)
+            }
         }
     }
 }

@@ -67,9 +67,9 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
             CarritoScreen(
                 carrito = productoViewModel.carrito.value,
                 onAumentar = { productoViewModel.agregarProducto(it) },
-                onDisminuir = { productoViewModel.removerProducto(it) },
+                onDisminuir = { productoViewModel.disminuirProducto(it) },
                 onFinalizarCompra = {
-                    productoViewModel.limpiarCarrito()
+                    productoViewModel.vaciarCarrito()
                     navController.navigate("checkout")
                 }
             )

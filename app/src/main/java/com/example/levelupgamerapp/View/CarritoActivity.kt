@@ -22,11 +22,10 @@ class CarritoActivity : ComponentActivity() {
                     productoViewModel.agregarProducto(producto)
                 },
                 onDisminuir = { producto ->
-                    productoViewModel.removerProducto(producto)
+                    productoViewModel.disminuirProducto(producto)
                 },
                 onFinalizarCompra = {
-                    productoViewModel.limpiarCarrito()
-                    // Opcional: mostrar un toast o navegar a pantalla de éxito
+                    productoViewModel.vaciarCarrito()
                 }
             )
         }
