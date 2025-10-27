@@ -74,5 +74,17 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
                 }
             )
         }
+
+        composable("checkout") {
+            CheckoutScreen(
+                onConfirmarCompra = {
+                    productoViewModel.vaciarCarrito()
+                    navController.navigate("main") //vuelve al inicio
+                },
+                onCancelar = {
+                    navController.popBackStack() // vuelve a la pantalla anterior
+                }
+            )
+        }
     }
 }
