@@ -19,9 +19,10 @@ import com.example.levelupgamerapp.R
 import com.example.levelupgamerapp.model.Producto
 @Composable
 fun MainScreen(
-    navController: NavController,
-    productos: List<Producto> = emptyList(),
-    onAgregarAlCarrito: (Producto) -> Unit = {}
+    navController: NavController,            // <- agregado
+    productos: List<Producto>,
+    onAgregarAlCarrito: (Producto) -> Unit,
+    onVerDetalle: (Producto) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -119,7 +120,12 @@ fun MainScreenPreview() {
         Producto(10,"Mousepad Razer Goliathus Extended Chroma",29990,"Mousepad","Ofere una area amplia con iluminacion RGB personalizable.",R.drawable.mousepad),
         Producto(10,"Polera Gamer Personalizada 'Level-Up'",14990,"Poleras Personalizadas","Una polera comoda y estilizada, con la frase 'Level-Up' en el interior.",R.drawable.leveluppolera)
     )
-    MainScreen(navController = navController, productos = productos)
+    MainScreen(
+        navController = navController,
+        productos = productos,
+        onAgregarAlCarrito = {},
+        onVerDetalle = {}
+    )
 }
 
 @Preview(showBackground = true)
